@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>所有商品</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./products.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- 導航列 -->
+      <header>
+        <section class="logo">
+          <a href="../index/index.html"
+            ><img class="logo" src="../picture/logo/LogoVer2.png" alt=""
+          /></a>
+          <div class="top">
+            <div class="menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="search">
+              <img src="../picture/icon/scan.png" alt="" />
+              <input type="text" placeholder="搜尋商品" />
+            </div>
+            <!-- RWD搜尋 -->
+            <div class="rwd-search">
+              <input type="search" placeholder="搜尋商品" />
+            </div>
+            <!-- ------- -->
+            <div class="user">
+              <a href="#"><img src="../picture/icon/user.png" alt="" /></a>
+            </div>
+            <div class="cart">
+              <a href="#"
+                ><img src="../picture/icon/shopping-cart.png" alt=""
+              /></a>
+            </div>
+            <!-- RWD導覽列 -->
+            <div class="rwd-nav">
+              <ul>
+                <li v-for="(item, index) in navItems" :key="index">
+                  <a :href="item.link"
+                    ><i :class="item.iconClass"></i>{{ item.text }}</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <!-- ---------------- -->
+          </div>
+        </section>
+
+        <section class="nav-list">
+          <nav>
+            <ul>
+              <li v-for="(item, index) in navItems" :key="index">
+                <a :href="item.link"
+                  ><i :class="item.iconClass"></i>{{ item.text }}</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </section>
+      </header>
+
+      <!-- 商品區 -->
+      <section class="all-product">
+        <!-- 分類list -->
+        <div class="list">
+          <ul>
+            <li v-for="(item, index) in listItems" :key="index">
+              <a href="#">{{item.title}}</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="product">
+          <div class="top-image"></div>
+
+          <div class="order">
+            <p>商品排序：</p>
+            <button class="update">最新上架</button>
+            <button class="price">商品價格</button>
+          </div>
+
+          <div v-for="(cards, index) in cardsItems" :key="index" class="cards">
+            <div v-for="(card, index) in cards" :key="index" class="card">
+              <div class="pic">
+                <a :href="card.link"><img :src="card.imgSrc" alt="" /></a>
+              </div>
+
+              <p>{{card.title}}</p>
+              <div class="price">
+                <p>${{card.price}}</p>
+                <button>加入購物車</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="page">
+            <div v-for="(_, index) in 9" :key="index">
+              <div
+                v-if="index !== 6"
+                :class="index === 0 ? 'page-first': index === 8 ? 'page-next':'page-other'"
+              >
+                <a href="#"
+                  >{{index + 1 === 6 ? '...' : index + 1 === 9 ? '下一頁' :
+                  index + 1}}</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="footer-content">
+          <div class="link">
+            <ul>
+              <li v-for="(item, index) in footerLinkItems" :key="index">
+                <a href="#">{{item.text}}</a>
+              </li>
+            </ul>
+            <p>
+              Copyright&copy;本網站為緯育TibaMe學員專題作品，僅供學習、展示之用
+            </p>
+          </div>
+          <div class="mail">
+            <p>客服信箱：service@funtoy.gmail.com</p>
+            <div class="social-logo">
+              <div
+                class="logo"
+                v-for="(item, index) in footerLogoItems"
+                :key="index"
+              >
+                <a href="#"><img :src="item.link" alt="" /></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <div class="rwd-list-button">
+        <button>分類列表</button>
+      </div>
+
+      <div class="scroll-to-top">
+        <img src="./picture/icon/up-arrow.png" alt="" />
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            navItems: [
+              {
+                link: "../index/index.html",
+                iconClass: "fa-solid fa-house-chimney",
+                text: "首頁",
+              },
+              {
+                link: "../news/news.html",
+                iconClass: "fa-solid fa-table-list",
+                text: "最新消息",
+              },
+              {
+                link: "../products/products.html",
+                iconClass: "fa-solid fa-bag-shopping",
+                text: "所有商品",
+              },
+              {
+                link: "../about/about.html",
+                iconClass: "fa-solid fa-address-card",
+                text: "關於我們",
+              },
+              {
+                link: "../contact/contact.html",
+                iconClass: "fa-sharp fa-regular fa-message",
+                text: "常見Q&A",
+              },
+            ],
+
+            footerLinkItems: [
+              { text: "關於我們" },
+              { text: "購物說明" },
+              { text: "會員規章" },
+              { text: "網站使用條款" },
+              { text: "聯絡我們" },
+            ],
+
+            footerLogoItems: [
+              { link: "../picture/icon/facebook.png" },
+              { link: "../picture/icon/youtube.png" },
+              { link: "../picture/icon/line.png" },
+            ],
+
+            listItems: [
+              { title: "現貨商品" },
+              { title: "預購商品" },
+              { title: "特價專區" },
+              { title: "BANDAI組裝模型" },
+              { title: "PVC公仔-GSC" },
+              { title: "PVC公仔-ALTER" },
+              { title: "PVC公仔-MegaHouse" },
+              { title: "PVC公仔-MaxFactory" },
+              { title: "美系PVC" },
+              { title: "SHF可動人偶" },
+              { title: "BANDAI合金骨架系列" },
+              { title: "日系景品" },
+              { title: "Re-Ment盒玩" },
+              { title: "T-art轉蛋系列" },
+              { title: "GSC黏土人" },
+            ],
+
+            cardsItems: [
+              [
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/new-profuct/ironMan.png",
+                  title: "HOT TOYS 復仇者聯盟 終局之戰 鋼鐵人MK85 戰損",
+                  price: 7500,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/new-profuct/sabo.png",
+                  title: "P.O.P 海賊王 LIMITED EDITION 薩波 火拳繼承",
+                  price: 7300,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/new-profuct/sugo.png",
+                  title: "threezero VA Hi-SPEC 閃電霹靂車 阿斯拉G.S.X",
+                  price: 8500,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/new-profuct/uta.png",
+                  title: "BANDAI 海賊王 惡魔果實公仔 劇場版 美音",
+                  price: 1000,
+                },
+              ],
+
+              [
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/new-profuct/spider.png",
+                  title: "HOT TOYS 蜘蛛人：無家日 融合戰衣款",
+                  price: 7650,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/new-profuct/eva.png",
+                  title: "EVA 新世紀福音戰士 初號機 立體造型悠遊卡",
+                  price: 800,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/product1.jpg",
+                  title: "Figure-rise 遊戲王 黑暗大法師艾克佐迪亞 增幅版",
+                  price: 1080,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/product2.png",
+                  title: "Max Factory 船長 寶鐘瑪琳",
+                  price: 4800,
+                },
+              ],
+
+              [
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/product3.png",
+                  title: "火影忍者 疾風傳 VIBRATION STARS 宇智波佐助&地達羅",
+                  price: 760,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/DX ball.jpg",
+                  title: "MH PETITRAMA DX 七龍珠 孫悟空 成長軌跡",
+                  price: 1800,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/rider.jpg",
+                  title: "CSM 假面騎士555 天之帝王 Psyga 天帝驅動器",
+                  price: 6500,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/FateGate.jpg",
+                  title: "POP UP PARADE 命運石之門 牧瀨紅莉栖",
+                  price: 850,
+                },
+              ],
+
+              [
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/breath.jpg",
+                  title: "T-art 鬼滅之刃 轉蛋系列",
+                  price: 999,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/chainsaw.jpg",
+                  title: "GSC SEGA 鏈鋸人 淀治",
+                  price: 4980,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/edward.jpg",
+                  title: "PROOF 鋼之鍊金術師 愛力克兄弟套組",
+                  price: 7900,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/carbee.jpg",
+                  title: "Re-Ment 星之卡比盒玩 肚子餓了 卡比廚房",
+                  price: 1200,
+                },
+              ],
+
+              [
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/onepiece.jpg",
+                  title: "MH GEM 海賊王 大和 小時候 RUN!",
+                  price: 1350,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/saber.jpg",
+                  title: "角川 Fate HF 黑化Saber 和服ver",
+                  price: 4500,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/MG.jpg",
+                  title: "BANDAI 魔法少年賈修 轉蛋系列",
+                  price: 999,
+                },
+                {
+                  link: "../item/item.html",
+                  imgSrc: "../picture/product/fairy.jpg",
+                  title: "BellFine 魔導少年最終章 艾爾莎．史卡雷特",
+                  price: 4800,
+                },
+              ],
+            ],
+          };
+        },
+      }).mount("#app");
+    </script>
+    <script src="./products.js"></script>
+
+    <style>
+      section.all-product .product .page div:nth-child(6) .page-other {
+        background-color: #fff;
+        pointer-events: none;
+      }
+
+      section.all-product .product .page div:nth-child(6) .page-other a {
+        color: #000;
+      }
+    </style>
+  </body>
+</html>

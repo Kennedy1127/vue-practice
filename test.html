@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>test</title>
+  </head>
+  <body>
+    測試
+
+    <div id="app">
+      <!-- 導航列 -->
+      <header>
+        <section class="logo">
+          <a href="index.html"
+            ><img class="logo" src="../picture/logo/LogoVer2.png" alt=""
+          /></a>
+          <div class="top">
+            <div class="menu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="search">
+              <img src="../picture/icon/scan.png" alt="" />
+              <input type="text" placeholder="搜尋商品" />
+            </div>
+            <!-- RWD搜尋 -->
+            <div class="rwd-search">
+              <input type="search" placeholder="搜尋商品" />
+            </div>
+            <!-- ------- -->
+            <div class="user">
+              <a href="#"><img src="../picture/icon/user.png" alt="" /></a>
+            </div>
+            <div class="cart">
+              <a href="#"
+                ><img src="../picture/icon/shopping-cart.png" alt=""
+              /></a>
+            </div>
+            <!-- RWD導覽列 -->
+            <div class="rwd-nav">
+              <ul>
+                <li v-for="(item, index) in navItems" :key="index">
+                  <a :href="item.link"
+                    ><i :class="item.iconClass"></i>{{ item.text }}</a
+                  >
+                </li>
+              </ul>
+            </div>
+            <!-- ---------------- -->
+          </div>
+        </section>
+
+        <section class="nav-list">
+          <nav>
+            <ul>
+              <li v-for="(item, index) in navItems" :key="index">
+                <a :href="item.link"
+                  ><i :class="item.iconClass"></i>{{ item.text }}</a
+                >
+              </li>
+            </ul>
+          </nav>
+        </section>
+      </header>
+
+      <footer>
+        <div class="footer-content">
+          <div class="link">
+            <ul>
+              <li v-for="(item, index) in footerLinkItems" :key="index">
+                <a href="#">{{item.text}}</a>
+              </li>
+            </ul>
+            <p>
+              Copyright&copy;本網站為緯育TibaMe學員專題作品，僅供學習、展示之用
+            </p>
+          </div>
+          <div class="mail">
+            <p>客服信箱：service@funtoy.gmail.com</p>
+            <div class="social-logo">
+              <div
+                class="logo"
+                v-for="(item, index) in footerLogoItems"
+                :key="index"
+              >
+                <a href="#"><img :src="item.link" alt="" /></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <div class="scroll-to-top">
+        <img src="./picture/icon/up-arrow.png" alt="" />
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            navItems: [
+              {
+                link: "../index/index.html",
+                iconClass: "fa-solid fa-house-chimney",
+                text: "首頁",
+              },
+              {
+                link: "../news/news.html",
+                iconClass: "fa-solid fa-table-list",
+                text: "最新消息",
+              },
+              {
+                link: "../products/products.html",
+                iconClass: "fa-solid fa-bag-shopping",
+                text: "所有商品",
+              },
+              {
+                link: "../about/about.html",
+                iconClass: "fa-solid fa-address-card",
+                text: "關於我們",
+              },
+              {
+                link: "../contact/contact.html",
+                iconClass: "fa-sharp fa-regular fa-message",
+                text: "常見Q&A",
+              },
+            ],
+
+            footerLinkItems: [
+              { text: "關於我們" },
+              { text: "購物說明" },
+              { text: "會員規章" },
+              { text: "網站使用條款" },
+              { text: "聯絡我們" },
+            ],
+
+            footerLogoItems: [
+              { link: "../picture/icon/facebook.png" },
+              { link: "../picture/icon/youtube.png" },
+              { link: "../picture/icon/line.png" },
+            ],
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
